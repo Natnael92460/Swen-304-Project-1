@@ -1,13 +1,21 @@
 ---------------
 --*** Q1 ***---
 ---------------
+INSERT INTO Skills (SkillId,Description)
+Values (21,'Driving');
+--ERROR:  duplicate key value violates unique constraint "skills_description_key"
+--DETAIL:  Key (description)=(Driving) already exists.
 
-
+--This insertion would violates the uniqueness of the description; there is already a 
+-- Skill in the Skills table with (9, Driving), hence the error message.
+ 
 ---------------
 --*** Q2 ***---
 ---------------
 
 [--** A **--]
+INSERT INTO Banks (BankName,City,NoAccounts,Security)
+Values ('Loanshark Bank','Evanston',100,'very good');
 -- ERROR:  duplicate key value violates unique constraint "banks_pkey"
 -- DETAIL:  Key (bankname, city)=(Loanshark Bank      , Evanston            ) already exists.
 
@@ -34,17 +42,10 @@ Values ('EasyLoan Bank','Evanston',100,'poor');
 ---------------
 --*** Q3 ***---
 ---------------
-
-INSERT INTO Skills VALUES (20,'Guarding');
--- INSERT 0 1
-
----------------
---*** Q3 ***---
----------------
-INSERT INTO Robberies VALUES ('NXP Bank','Chicago','2009-01-08',1000);
+INSERT INTO Robberies VALUES ('NXP Bank','Chicago','2019-01-08',1000);
 
 -- ERROR:  duplicate key value violates unique constraint "robberies_pkey"
--- DETAIL:  Key (bankname, city, daterobbed)=(NXP Bank            , Chicago             , 2009-01-08
+-- DETAIL:  Key (bankname, city, daterobbed)=(NXP Bank            , Chicago             , 2019-01-08
 
 -- This violates the uniqueness constraint of the primary key in Robberies (bankname, city, daterobbed)
 -- a tuple with these (bankname, city, daterobbed) values already exists in the robberies table
@@ -76,6 +77,12 @@ AND Security = 'very good';
 ---------------
 --*** Q6 ***---
 ---------------
+DELETE FROM Robberies 
+WHERE BankName = 'Loanshark Bank'
+AND City = 'Chicago';
+
+-- ERROR:  update or delete on table "robberies" violates foreign key constraint "accomplices_bankname_fkey" on table "accomplices"
+-- DETAIL:  Key (bankname, city, daterobbed)=(Loanshark Bank      , Chicago             , 2017-11-09          ) is still referenced from table "accomplices".
 
 ---------------
 --*** Q7 ***---
@@ -107,7 +114,9 @@ INSERT INTO Robbers VALUES (333,'Jail Mouse', 25, 35);
 
 [--** A **--]
 INSERT INTO HasSkills VALUES (1, 7, 1, 'A+');
--- INSERT 0 1
+-- ERROR:  duplicate key value violates unique constraint "hasskills_pkey"
+-- DETAIL:  Key (robberid, skillid)=(1, 7) already exists.
+
 
 [--** B **--]
 INSERT INTO HasSkills VALUES (1, 2, 0, 'A');
@@ -126,7 +135,8 @@ INSERT INTO HasSkills VALUES (333, 1, 1, 'B-');
 
 [--** D **--]
 INSERT INTO HasSkills VALUES (3, 20, 3, 'B+');
--- INSERT 0 1
+-- ERROR:  insert or update on table "hasskills" violates foreign key constraint "hasskills_skillid_fkey"
+-- DETAIL: Key (skillid)=(20) is not present in table "skills".
 
 ---------------
 --*** Q9 ***---
