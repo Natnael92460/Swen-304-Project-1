@@ -38,7 +38,8 @@ CONSTRAINT prison_age CHECK (NoYears < Age)
 
 CREATE TABLE Skills (
 SkillId SERIAL PRIMARY KEY,
-Description Char (20)
+Description Char (20),
+UNIQUE (Description)
 );
 
 CREATE TABLE HasSkills (
