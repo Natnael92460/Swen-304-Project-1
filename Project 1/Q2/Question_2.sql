@@ -2,10 +2,10 @@
 -- using the simple SQL COPY Command, since the respective files matched the schemas
 -- perfectly, the rest were a little tricky to load.
 
-\copy Banks FROM 'Desktop/banks_22.data';
-\copy Robberies FROM 'Desktop/robberies_22.data';
-\copy Plans FROM 'Desktop/plans_22.data';
-\copy Robbers(NickName,Age,NoYears) FROM 'Desktop/robbers_22.data';
+\copy Banks FROM 'Desktop/pro1/banks_22.data';
+\copy Robberies FROM 'Desktop/pro1/robberies_22.data';
+\copy Plans FROM 'Desktop/pro1/plans_22.data';
+\copy Robbers(NickName,Age,NoYears) FROM 'Desktop/pro1/robbers_22.data';
 
 -----------------------------------------------
 -- *** For populating the skills table: *** ---
@@ -21,7 +21,7 @@ PRIMARY KEY (nickname,skill)
 );
 
 -- now load the temp table with the data from the file:
-\copy TempHasSkills FROM 'Desktop/hasskills_22.data';
+\copy TempHasSkills FROM 'Desktop/pro1/hasskills_22.data';
 
 -- now populate the Skills table using the Temporary has skills table:
 INSERT INTO Skills (Description) SELECT DISTINCT Skill FROM TempHasSkills;
@@ -69,7 +69,7 @@ PRIMARY KEY (RobberName,BankName,City)
 );
 
 -- now load the temp table with the data from the file:
-\copy TempHasAccounts FROM 'Desktop/hasaccounts_22.data';
+\copy TempHasAccounts FROM 'Desktop/pro1/hasaccounts_22.data';
 
 -- the view that's created by joining the robbers table with the 
 -- temphasaccounts table, to display all the data needed for hasaccounts:
@@ -99,7 +99,7 @@ PRIMARY KEY (RobberName,BankName,City,DateOfRobbery)
 );
 
 -- populate the temp table by using the file:
-\copy TempAccomplices FROM 'Desktop/accomplices_22.data';
+\copy TempAccomplices FROM 'Desktop/pro1/accomplices_22.data';
 
 -- now make a join with the robbers table, and obtain the information relevant 
 -- to the accomplices table, then insert the relevant data into accomplices:
