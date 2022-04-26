@@ -37,7 +37,8 @@ Values ('EasyLoan Bank','Evanston',-5,'excellent');
 INSERT INTO Banks (BankName,City,NoAccounts,Security)
 Values ('EasyLoan Bank','Evanston',100,'poor');
 
--- INSERT 0 1
+-- ERROR:  new row for relation "banks" violates check constraint "check_valid_security"
+-- DETAIL:  Failing row contains (EasyLoan Bank       , Evanston            , 100, poor   
 
 ---------------
 --*** Q3 ***---
