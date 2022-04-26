@@ -4,7 +4,8 @@ City Char (20) NOT NULL,
 NoAccounts Integer,
 Security Char (20),
 PRIMARY KEY (BankName,City),
-CONSTRAINT accounts_positive CHECK (NoAccounts > 0)
+CONSTRAINT accounts_positive CHECK (NoAccounts > 0),
+CONSTRAINT check_valid_Security CHECK (security in('very good','weak','excellent','good')
 );
 
 
